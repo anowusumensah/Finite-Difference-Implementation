@@ -77,8 +77,8 @@ figure('Color','w')
 numFigs = [0,0.3333,0.5,2*dx, 3*dx,1.5,5*dx,2,3,5,10,25]; %% Timepoints of interest
 [~,m] = size(numFigs);
 for xx = 1: m
-    ab_ = find(t >= numFigs(xx)); %% Index corresponding to the time
-    idxT = ab_(1);
+    ab_ = find(t >= numFigs(xx)); % The time array is of type float and will assume 0.5 != 0.500.
+    idxT = ab_(1); %% Index corresponding to the time
     name = ['Time - ',num2str(numFigs(xx)),'s'];
     subplot(4,3,xx)
 % %     f = figure('Name',name,'NumberTitle','off');
