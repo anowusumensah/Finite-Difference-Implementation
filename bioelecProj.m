@@ -1,6 +1,6 @@
 close all; clear; clc;
 % This script was written by Anthony Owusu-Mensah
-% current as at August 2019
+% current as at November 2019
 % This script uses finite difference method to implement the class project(EEN582-Course project.pdf)
 % EEN582-Course project.pdf is attached to this repository
 
