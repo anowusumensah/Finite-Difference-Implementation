@@ -25,10 +25,8 @@ Q(1,:,:) = Q(2,:,:); % Left
 Q(end,:,:) = (4/3)*Q(end-1,:,:); % Rigth 
 
 %% Dirichlet Boundary conditions
-%% Top Rigth corners
-Q(end-1:end, end-1:end,:) = 100;  
-%% Bottom Rigth corners
-Q(end-1:end, 1:2 ,:) = -100;
+Q(end-1:end, end-1:end,:) = 100; %Top 4 Rigth corners
+Q(end-1:end, 1:2 ,:) = -100; %Bottom 4 Rigth corners
 %%
 
 %% Parameters for convergence
@@ -86,7 +84,7 @@ for xx = 1: m
 % %     f.Color = [1 1 1];
         X = Q(:,:, idxT);
 % %         imagesc((X))
-        imagesc(rot90(X)); % So it matches the number line
+        imagesc(rot90(X)); % Rotate to match the cartesian coordinates
         colormap(jet(260))
         shading interp
         title(name);
