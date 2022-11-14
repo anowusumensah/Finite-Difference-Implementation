@@ -1,8 +1,12 @@
 close all; clear; clc;
+% This script was written by Anthony Owusu-Mensah
+% current as at August 2019
+% This script uses finite difference method to implement the class project(EEN582-Course project.pdf)
+% EEN582-Course project.pdf is attached to this repository
 
 lX = 3; % Length in the x-direction
 lY = lX; % Lenght in y-direction
-tend = 25; % Simulation end time
+tend = 25; % Simulation duration
 N = 10; % Number of Nodes
 dx = lX/(N - 1); % deltaX
 dy = dx; % deltaY
@@ -11,29 +15,31 @@ dt = 0.001; % time step
 t = 0:dt:tend;
 Nt = length(t);
 r = dt/h;
+
 %% Initial condition
 Q = -80*ones(N,N,Nt);
-
-%% Parameters for convergence
-iter = 0;
-err = 5;
-erroTolerance  = 1e-6;
-numberOfIterations = 200;
-%% Phi changes in space and time
-
-%% Boundary Conditions
+%% No flux Boundary Conditions
 Q(:,end,:) = Q(:,end-1,:); % Top 
 Q(:,1,:) = Q(:,2,:); % Bottom
 Q(1,:,:) = Q(2,:,:); % Left 
 Q(end,:,:) = (4/3)*Q(end-1,:,:); % Rigth 
 
+%% Dirichlet Boundary conditions
 %% Top Rigth corners
 Q(end-1:end, end-1:end,:) = 100;  
 %% Bottom Rigth corners
 Q(end-1:end, 1:2 ,:) = -100;
 %%
-% % while err > tol
+
+%% Parameters for convergence
+iter = 0;
+%% err = 5;
+erroTolerance  = 1e-6;
+numberOfIterations = 200;
+%% Phi changes in space and time
+
 while iter < numberOfIterations
+
     iter = iter + 1;
     Qold = Q;
     %% Solve the interior Nodes
@@ -45,15 +51,16 @@ while iter < numberOfIterations
             end
         end
     end
-
-     sumold = sum((Qold.*Qold),'all') ; aa = sum((Q.*Q), 'all');   
-     err = abs(aa-sumold); 
-     if(err <= erroTolerance)
-      break;
+    
+    % Test for convergence
+     sumOld = sum((Qold.*Qold),'all') ; sumNew = sum((Q.*Q), 'all');   
+     error_ = abs(sumNew - sumOld); 
+     if(error_ <= erroTolerance)
+        break;
      end
 
  %% Apply boundary conditions
- %% No Boundary Conditions
+ %% No flux Boundary Conditions (Neumann Boundary Condition)
     Q(:,end,:) = Q(:,end-1,:); % Top 
     Q(:,1,:) = Q(:,2,:); % Bottom
     Q(1,:,:) = Q(2,:,:); % Left 
@@ -66,7 +73,7 @@ while iter < numberOfIterations
     Q(end-1:end, 1:2,:) = -100;
 end
 
-%% This section of the code is for Visualization
+%% This section of the code is for Visualization 
 figure('Color','w')
 numFigs = [0,0.3333,0.5,2*dx, 3*dx,1.5,5*dx,2,3,5,10,25]; %% Timepoints of interest
 [~,m] = size(numFigs);
