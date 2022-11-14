@@ -17,6 +17,7 @@ Nt = length(t);
 r = dt/h;
 
 %% Initial condition
+% Q(x,y,t) is a function of x,y and t
 Q = -80*ones(N,N,Nt);
 %% No flux Boundary Conditions
 Q(:,end,:) = Q(:,end-1,:); % Top 
@@ -40,7 +41,7 @@ while iter < numberOfIterations
 
     iter = iter + 1;
     Qold = Q;
-    %% Solve the interior Nodes
+    %% Solve the interior Nodes (i,j,k are indices for x,y and t respectively)
     for k = 1:Nt-1   
         for i = 2:N-1
             for j = 2:N-1
