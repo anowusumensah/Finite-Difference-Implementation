@@ -32,7 +32,7 @@ Q(end-1:end, 1:2 ,:) = -100; %Bottom 4 Rigth corners
 %% Parameters for convergence
 iter = 0;
 %% err = 5;
-erroTolerance  = 1e-6;
+errorTolerance  = 1e-6;
 numberOfIterations = 200;
 %% Phi changes in space and time
 
@@ -53,7 +53,7 @@ while iter < numberOfIterations
     % Test for convergence
      sumOld = sum((Qold.*Qold),'all') ; sumNew = sum((Q.*Q), 'all');   
      error_ = abs(sumNew - sumOld); 
-     if(error_ <= erroTolerance)
+     if(error_ <= errorTolerance)
         break;
      end
 
