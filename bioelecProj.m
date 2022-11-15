@@ -19,7 +19,7 @@ r = dt/h;
 %% Initial condition
 % Q(x,y,t) is a function of x,y and t
 Q = -80*ones(N,N,Nt);
-%% No flux Boundary Conditions
+%% No flux Boundary Conditions(Neumann Boundary Condition)
 Q(:,end,:) = Q(:,end-1,:); % Top 
 Q(:,1,:) = Q(:,2,:); % Bottom
 Q(1,:,:) = Q(2,:,:); % Left 
